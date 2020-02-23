@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/Users/mitrd/source/repos/Harman Tasks/cpp_task_01/sum_gorner_program/main_program/main.cpp
+iostream
+-
+vector
+-
+rational_numbers.h
+E:/Users/mitrd/source/repos/Harman Tasks/cpp_task_01/sum_gorner_program/main_program/rational_numbers.h
+
+E:/Users/mitrd/source/repos/Harman Tasks/cpp_task_01/sum_gorner_program/rationals_lib/rational_numbers.h
+
