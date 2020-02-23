@@ -1,0 +1,2 @@
+E:\MinGW\bin\ar.exe qc librationals_lib.a  CMakeFiles/rationals_lib.dir/rational_numbers.cpp.obj
+E:\MinGW\bin\ranlib.exe librationals_lib.a
