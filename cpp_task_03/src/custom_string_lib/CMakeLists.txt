@@ -1,0 +1,1 @@
+add_library(custom_string_lib custom_string.cpp custom_string.h)
