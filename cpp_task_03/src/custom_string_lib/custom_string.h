@@ -6,8 +6,9 @@ public:
 	String(const char* _str = "");
 	String(const String&);
 	String(String &&other) noexcept;
-	String & operator= (String && other);
+	String & operator= (String && other) noexcept;
 	String & operator=(const String & rhs);
+	const char* Get_c() noexcept;
 
 	~String();
 

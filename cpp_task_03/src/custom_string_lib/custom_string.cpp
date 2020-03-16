@@ -25,7 +25,7 @@ String::String(String &&other) noexcept
 	other.str = nullptr;
 }
 
-String& String::operator= (String && other)
+String& String::operator= (String && other) noexcept
 {
 	if (this != &other)
 	{
@@ -52,6 +52,11 @@ String& String::operator=(const String& other)
 		StrCpy(this->str, other.str);
 	}
 	return *this;
+}
+
+const char * String::Get_c() noexcept
+{
+	return this->str;
 }
 	
 	// ---
