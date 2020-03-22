@@ -1,5 +1,32 @@
 #pragma once
 
+template <class T1, class T2>
+void construct(T1 *pT1, T2 &&rrT2)
+{
+	new (pT1) T1(rrT2);
+}
+
+template <class T>
+void destroy(T *pT)
+{
+	pT->~T();
+}
+
+template <class FwdIter>
+void destroy(
+	FwdIter first, FwdIter last)
+{
+	while (first != last)
+	{
+		destroy(&*first);
+		++first;
+	}
+}
+
+
+
+
+
 template<typename T>
 class Circular_buffer
 {
@@ -18,23 +45,25 @@ private:
 	T* pArr;
 	int pCur;
 	int size;
+	using iterator = T * ;
 
 public:
 	Circular_buffer(int capacity_ = 0) : capacity(capacity_)
 	{
 		pCur = 0;
 		size = 0;
-		pArr = new T[capacity];
+		pArr = static_cast <T *> (0 == capacity ? 0 :
+			operator new (capacity * sizeof(T)));
 	}
 	Circular_buffer(const Circular_buffer &other)
 	{
-		this->pCur = 0;
-		this->capacity = other.capacity;
-		this->size = other.size;
-		this->pArr = new T[capacity];
+		pCur = 0;
+		capacity = other.capacity;
+		size = other.size;
+		pArr = static_cast <T *> (0 == capacity ? 0 : operator new (capacity * sizeof(T)));
 		for (int i = 0; i < capacity; i++)
 		{
-			this->push(*(other.pArr + this->pCur)); 
+			this->push(*(other.pArr + this->pCur));
 		}
 		this->pCur = other.pCur;
 	}
@@ -49,25 +78,28 @@ public:
 	}
 	Circular_buffer& operator=(const Circular_buffer & other)
 	{
-		T* tmp = new T[other.capacity];
+		T* tmp = static_cast <T *> (0 == other.capacity ? 0
+			: operator new (other.capacity * sizeof(T)));
 
 		for (int i = 0; i < other.size; i++)
 		{
-			tmp[i] = (*(other.pArr + i));
+			construct(&tmp[i], std::move(*(other.pArr + i)));
 		}
 		delete[] this->pArr;
 		this->pArr = tmp;
 		this->capacity = other.capacity;
 		this->size = other.size;
 		this->pCur = other.pCur;
+		return *this;
 	}
 	void reserve(int cap)
 	{
-		T* tmp = new T[cap];
-		int j = 0;
-		for (int i = 0; i < size; i++)
+		T* tmp = static_cast <T *> (0 == cap ? 0
+			: operator new (cap * sizeof(T)));
+
+		for (int i = 0; i < cap; i++)
 		{
-			tmp[i] = *(pArr + i);
+			construct(&tmp[i], move(*(pArr + i)));
 		}
 		delete[] pArr;
 		pArr = tmp;
@@ -77,13 +109,14 @@ public:
 	}
 	void erase(T* it)
 	{
-		T* tmp = new T[capacity - 1];
+		T* tmp = static_cast <T *> (0 == (capacity - 1) ? 0
+			: operator new ((capacity - 1) * sizeof(T)));
 		int j = 0;
-		for (int i = 0; i < capacity; i++)
+		for (int i = 0; i < size; i++)
 		{
 			if (pArr + i != it)
 			{
-				tmp[j] = *(pArr + i);
+				construct(&tmp[j], move(*(pArr + i)));
 				j++;
 			}
 		}
@@ -91,7 +124,7 @@ public:
 		pArr = tmp;
 		capacity--;
 		size--;
-		clamp(pCur);		
+		clamp(pCur);
 	}
 	void swap(Circular_buffer &other) noexcept
 	{
@@ -100,9 +133,13 @@ public:
 		std::swap(size, other.size);
 		std::swap(pArr, other.pArr);
 	}
-	T* begin() const noexcept
+	iterator begin() const noexcept
 	{
 		return pArr;
+	}
+	iterator end() const noexcept
+	{
+		return pArr + size;
 	}
 	void print() const noexcept
 	{
@@ -112,15 +149,15 @@ public:
 		}
 		std::cout << std::endl;
 	}
-	void push(T& data)
+	void push(const T &rcT/*, std::enable_if_t <std::is_copy_constructible_v <std::remove_reference_t <T>>> **/)
 	{
-		*(pArr + pCur) = data;
+		construct(pArr + pCur, std::forward <const T>(rcT));
 		clamp(++pCur);
 		size_clamp(++size);
 	}
-	void push(T&& data)
+	void push(T &&rrT/*, std::enable_if_t <std::is_move_constructible_v <std::remove_reference_t <T>>> **/)
 	{
-		*(pArr + pCur) = data;
+		construct(pArr + pCur, std::forward <T>(rrT));
 		clamp(++pCur);
 		size_clamp(++size);
 	}
@@ -133,7 +170,9 @@ public:
 		return size;
 	}
 	~Circular_buffer()
-	{		
-		delete[] pArr;
+	{
+		::destroy(pArr, pArr + size);
+		operator delete (pArr);
 	}
 };
+

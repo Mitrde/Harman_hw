@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Users\mitrd\source\repos\Harman Tasks\cpp1_task_06_exception\build\CMakeFiles\8f92937a65de49d15544f3a4c722fcb0\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{FD9EB3BB-93CD-3D7F-9583-3458DA4A75D5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
