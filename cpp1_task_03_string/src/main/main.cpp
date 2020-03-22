@@ -9,6 +9,6 @@ int main()
 	String B = A;
 	A = move(B);
 	cout << A.Get_c() << endl;
-	//system("pause");
+	system("pause");
 	return 0;
 }

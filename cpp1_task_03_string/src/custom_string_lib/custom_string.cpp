@@ -6,8 +6,8 @@ void StrCpy(char*,const char*);
 
 String::String(const char* _str)
 {
-	this->size = StrLen(_str);
-	str = new char[StrLen(_str) + 1];
+	size = StrLen(_str);
+	str = new char[size + 1];
 	StrCpy(str, _str);
 }
 

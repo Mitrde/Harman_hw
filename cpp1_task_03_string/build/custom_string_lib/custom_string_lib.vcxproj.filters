@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\Users\mitrd\source\repos\Harman Tasks\cpp1_task_03_string\src\custom_string_lib\custom_string.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\Users\mitrd\source\repos\Harman Tasks\cpp1_task_03_string\src\custom_string_lib\custom_string.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\Users\mitrd\source\repos\Harman Tasks\cpp1_task_03_string\src\custom_string_lib\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{5256D15F-5188-3CC4-9BA6-C796316E1AA5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{11C65B36-2E4D-3F9D-85EA-609ABBC4E0A0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

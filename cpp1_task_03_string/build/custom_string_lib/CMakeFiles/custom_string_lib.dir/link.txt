@@ -1,2 +1,0 @@
-E:\MinGW\bin\ar.exe qc libcustom_string_lib.a  CMakeFiles/custom_string_lib.dir/custom_string.cpp.obj
-E:\MinGW\bin\ranlib.exe libcustom_string_lib.a

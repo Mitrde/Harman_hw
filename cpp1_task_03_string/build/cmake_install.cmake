@@ -1,4 +1,4 @@
-# Install script for directory: E:/Users/mitrd/source/repos/Harman Tasks/cpp_task_03/src
+# Install script for directory: E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -12,7 +12,7 @@ if(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
     string(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
            CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
   else()
-    set(CMAKE_INSTALL_CONFIG_NAME "")
+    set(CMAKE_INSTALL_CONFIG_NAME "Release")
   endif()
   message(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
 endif()
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("E:/Users/mitrd/source/repos/Harman Tasks/cpp_task_03/build/custom_string_lib/cmake_install.cmake")
-  include("E:/Users/mitrd/source/repos/Harman Tasks/cpp_task_03/build/main/cmake_install.cmake")
+  include("E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/build/custom_string_lib/cmake_install.cmake")
+  include("E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/build/main/cmake_install.cmake")
 
 endif()
 
@@ -47,5 +47,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "E:/Users/mitrd/source/repos/Harman Tasks/cpp_task_03/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
