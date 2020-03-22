@@ -1,3 +1,0 @@
-﻿  custom_string.cpp
-E:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include\xlocale(319): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
-  custom_string_lib.vcxproj -> E:\Users\mitrd\source\repos\Harman Tasks\cpp1_task_03_string\build\custom_string_lib\Debug\custom_string_lib.lib
