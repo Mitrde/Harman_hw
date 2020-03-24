@@ -1,0 +1,2 @@
+E:\Qt\Tools\mingw730_32\bin\ar.exe qc libcustom_string_lib.a  CMakeFiles/custom_string_lib.dir/custom_string.cpp.obj
+E:\Qt\Tools\mingw730_32\bin\ranlib.exe libcustom_string_lib.a

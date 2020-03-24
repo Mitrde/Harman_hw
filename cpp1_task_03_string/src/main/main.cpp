@@ -8,7 +8,6 @@ int main()
 	String A("str");
 	String B = A;
 	A = move(B);
-	cout << A.Get_c() << endl;
-	system("pause");
+    cout << A.Get_c() << endl;
 	return 0;
 }

@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/src/custom_string_lib/custom_string.h
+
+E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/src/main/main.cpp
+iostream
+-
+custom_string.h
+E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/src/main/custom_string.h
+

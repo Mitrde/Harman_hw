@@ -1,4 +1,0 @@
-E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/build/CMakeFiles/ALL_BUILD.dir
-E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/build/CMakeFiles/ZERO_CHECK.dir
-E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/build/custom_string_lib/CMakeFiles/custom_string_lib.dir
-E:/Users/mitrd/source/repos/Harman Tasks/cpp1_task_03_string/build/main/CMakeFiles/main.dir
