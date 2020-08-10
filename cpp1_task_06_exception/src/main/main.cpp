@@ -64,28 +64,30 @@ struct Test
 	Test(Test &&) = delete;
 	Test &operator = (const Test &) = delete;
 	Test &operator = (Test &&) = delete;
+	~Test()
+	{}
 };
 
 bool Test::ms_bThrowDeferred = false;
-void output(Test* begin, Test* end)
+void output(ConstCircularIterator<Test> begin, ConstCircularIterator<Test> end)
 {
-	copy(begin, end, ostream_iterator <Test>(cout, " "));
+	copy(begin, end+1, ostream_iterator <Test>(cout, " "));
 	cout << endl;
 }
 
 void output(Circular_buffer <Test> &rCircular_buffer)
-{
-	cout <<
-		"Size: " << rCircular_buffer.get_size() <<
-		", capacity: " << rCircular_buffer.get_capacity() <<
-		", contents:\n";
-	output(rCircular_buffer.begin(), rCircular_buffer.end());
-}
+	{
+		cout <<
+			"Size: " << rCircular_buffer.get_size() <<
+			", capacity: " << rCircular_buffer.get_capacity() <<
+			", contents:\n";
+		output(rCircular_buffer.cbegin(), rCircular_buffer.cend());
+	}
 
 void output(const exception &rcException)
-{
-	cout << "Exception: " << rcException.what() << endl;
-}
+	{
+		cout << "Exception: " << rcException.what() << endl;
+	}
 //using Stack = Circular_buffer <Test>;
 	//
 	// 1. push()
@@ -101,15 +103,16 @@ int main()
 	//
 	for (; s1.get_size() < s1.get_capacity(); ++i)
 		s1.push(Test(i));
-	//
-	auto begin = s1.begin();
-	auto end = s1.end();
+	output(s1);
+	
+	auto begin = s1.cbegin();
+	auto end = s1.cend();
 	//
 	output(s1);
 	//
 	try
 	{
-		s1.push(Test(999, true));
+		s1.push(move(Test(999, true)));
 	}
 	catch (const exception &rcException)
 	{
@@ -120,8 +123,8 @@ int main()
 	//
 	s1.push(Test(i++));
 	//
-	begin = s1.begin();
-	end = s1.end();
+	begin = s1.cbegin();
+	end = s1.cend();
 	//
 	output(s1);
 	//
@@ -145,9 +148,12 @@ int main()
 	// 2. Copy construction
 	//
 	cout << "2. Copy construction" << endl;
-	Test::ms_bThrowDeferred = true;
+	Test::ms_bThrowDeferred = true; //////////////////////////
+	
+	
 	try
 	{
+		auto it_b = s1.begin();
 		Circular_buffer s2 = s1;
 		//Stack s2 = std::move(s1); - compilation error
 	}
@@ -165,11 +171,12 @@ int main()
 	cout << "3. Copy assignment" << endl;
 	Circular_buffer s3(5);
 	s3.push(Test(111));
-	begin = s3.begin();
-	end = s3.end();
+	begin = s3.cbegin();
+	end = s3.cend();
 	try
 	{
 		s3 = s1;
+		cout << " number of refs after copy " << s3.refs() << endl;
 		//s3 = std::move(s1); - compilation error
 	}
 	catch (const exception &rcException)
@@ -179,6 +186,66 @@ int main()
 	//
 	output(s3);
 	output(begin, end);
+
+	//////////////// Copy on write TESTS
+	Test::ms_bThrowDeferred = false;
+
+	Circular_buffer c1(5);
+	for (int i = 0; i < 5; ++i)
+	{
+		c1.push(Test(i));
+	}
+	Circular_buffer c2(c1);
+
+	Circular_buffer c3(c2);
+	cout << "c1 amount of refs: " << c1.refs() << endl;
+	cout << "1)" << endl;
+	output(c1);
+	output(c2);
+	output(c3);
+
+	c1.push(Test(777));
+	cout << "c1 amount of refs: " << c1.refs() << endl;
+	cout << "c2 amount of refs: " << c2.refs() << endl;
+	Circular_buffer c4(c1);
+	output(c4);
+	cout << "c1 amount of refs: " << c1.refs() << endl;
+
+	cout << "2)" << endl;
+	output(c1);
+	output(c2);
+	output(c3);
+	output(c4);
+
+	c1.push(1337);
+	Circular_buffer c5(c1);
+
+	cout << "3)" << endl;
+	output(c1);
+	output(c2);
+	output(c3);
+	output(c4);
+	output(c5);
+
+	c5.push(Test(69));
+
+	cout << "4)" << endl;
+	output(c1);
+	output(c2);
+	output(c3);
+	output(c4);
+	output(c5);
+
+	c5.push(Test(420));
+
+	cout << "5)" << endl;
+	output(c1);
+	output(c2);
+	output(c3);
+	output(c4);
+	output(c5);
+
+
 	system("pause");
 	return 0;
 }
